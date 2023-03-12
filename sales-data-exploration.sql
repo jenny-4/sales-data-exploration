@@ -1,7 +1,6 @@
 /*ej_joins.txt */
 /*1.Provide a table that provides the region for each sales_rep along with their associated accounts.
-This time only for the Midwest region. Your final table should include three columns: the region name,
-the sales rep name, and the account name. Sort the accounts alphabetically (A-Z) according to account name.*/
+This time only for the Midwest region. Sort the accounts alphabetically (A-Z) according to account name.*/
 
 --As we want the region name, the sales rep name and the account name we have to work with 3 tables: regions, sales_reps and accounts
 --So we select the name column from the regions table, the name column from the sales_reps table and the name column from the accounts table
@@ -19,7 +18,6 @@ ORDER BY ac.name ASC
 
 /*2.Provide a table that provides the region for each sales_rep along with their associated accounts.
 This time only for accounts where the sales rep has a first name starting with S and in the Midwest region.
-Your final table should include three columns: the region name, the sales rep name, and the account name.
 Sort the accounts alphabetically (A-Z) according to account name.*/
 
 --Here we add another condition; the first name of the sales rep name should starts with an S.
@@ -35,7 +33,6 @@ ORDER BY ac.name ASC
 
 /*3. Provide a table that provides the region for each sales_rep along with their associated accounts.
 This time only for accounts where the sales rep has a last name starting with K and in the Midwest region.
-Your final table should include three columns: the region name, the sales rep name, and the account name.
 Sort the accounts alphabetically (A-Z) according to account name.*/
 
 -- In this one, the sales rep last name should starts with a K
@@ -51,8 +48,7 @@ ORDER BY ac.name ASC
 
 /*4. Provide the name for each region for every order, as well as the account name and the unit price they paid
 (total_amt_usd/total) for the order. However, you should only provide the results if the standard order quantity exceeds 100.
-Your final table should have 3 columns: region name, account name, and unit price. In order to avoid a division by zero error,
-adding .01 to the denominator here is helpful total_amt_usd/(total+0.01).*/
+In order to avoid a division by zero error, adding .01 to the denominator here is helpful total_amt_usd/(total+0.01).*/
 
 --We want the region, the account name, and the unit price so we going to work with the region, the accounts and the orders tables
 --We also going to need the sales_reps table to join the tables mentioned above
@@ -65,8 +61,7 @@ WHERE o.standard_qty > 100
 
 /*5. Provide the name for each region for every order, as well as the account name and the unit price they paid (total_amt_usd/total)
 for the order. However, you should only provide the results if the standard order quantity exceeds 100 and the poster order quantity
-exceeds 50. Your final table should have 3 columns: region name, account name, and unit price. Sort for the smallest unit price first.
-In order to avoid a division by zero error, adding .01 to the denominator here is helpful (total_amt_usd/(total+0.01).*/
+exceeds 50. Sort for the smallest unit price first.*/
 
 --To the query above we add a new condition: the  orders with more than 100 standard papers and with more than 50 poster papers
 --And then we sort the table to visualize the account name with the lowest unit price 
@@ -79,9 +74,7 @@ ORDER BY unit_price ASC
 
 /*6. Provide the name for each region for every order, as well as the account name and the unit price they paid (total_amt_usd/total)
 for the order. However, you should only provide the results if the standard order quantity exceeds 100 and the poster order quantity
-exceeds 50. Your final table should have 3 columns: region name, account name, and unit price. Sort for the largest unit price first.
-In order to avoid a division by zero error, adding .01 to the denominator here is helpful (total_amt_usd/(total+0.01).*/
-
+exceeds 50.  Sort for the largest unit price first.*/
 --Here we sort the table to visualize the account name with the highest unit price 
 SELECT r.name as region, ac.name as account_name, o.total_amt_usd/(o.total + 0.01) as unit_price
 FROM region r JOIN sales_reps sr ON r.id=sr.region_id JOIN accounts ac ON sr.id=ac.sales_rep_id JOIN orders o ON ac.id = o.account_id
@@ -90,9 +83,7 @@ ORDER BY unit_price DESC
 
 
 
-/*7. For each account, determine the average amount of each type of paper they purchased across their orders.
-Your result should have four columns - one for the account name and one for the average quantity purchased for each of the paper types 
-for each account.*/
+/*7. For each account, determine the average amount of each type of paper they purchased across their orders.*/
 
 --We need the column name of the accounts table, and the mean of each type of paper each one of the accounts purchased
 --Thus, we apply the aggregate function avg() in each type of paper
@@ -108,8 +99,7 @@ ORDER BY average_standard_qty DESC
 
 
 
-/*8. For each account, determine the average amount spent per order on each paper type. 
-Your result should have four columns - one for the account name and one for the average amount spent on each paper type.*/
+/*8. For each account, determine the average amount spent per order on each paper type. */
 
 --Here we do the same but we apply the avg() function on the amount spent on each paper type
 SELECT ac.name AS account_name, AVG(o.standard_amt_usd) AS avg_standard_amt_usd, AVG(o.gloss_amt_usd) AS avg_gloss_amt_usd,
@@ -127,7 +117,6 @@ ORDER BY total DESC
 
 
 /*9. Determine the number of times a particular channel was used in the web_events table for each sales rep. 
-Your final table should have three columns - the name of the sales rep, the channel, and the number of occurrences. 
 Order your table with the highest number of occurrences first.*/
 
 --We want the sales rep name, the channel and the number of occurrences of these channels so we will work with web_events table, the sales_reps table
