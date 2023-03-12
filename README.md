@@ -6,7 +6,7 @@ Sales analysis over a PostgreSQL database, aiming to discover diverse insights. 
 In this database, we have records of orders for different types of paper placed by companies such as Walmart, Microsoft, among others. We can see how much of each type of paper was ordered, how much was spent, who was responsible for the order, in which region the company is located, and the dates of the different web events each company has conducted 
 
 A SQL analysis of sales on differents types of paper.
-* [Data Analysis](https://github.com/jenny-4/sales-data-exploration/blob/main/sales-analysis.md)
+* [Sales Analysis](https://github.com/jenny-4/sales-data-exploration/blob/main/sales-analysis.md)
 
 ## Datasets used
 - <strong>accounts</strong>: This table contains all the different companies, their id (account_id), website, contact of point and the sale representative id
