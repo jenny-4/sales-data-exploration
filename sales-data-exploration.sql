@@ -1,4 +1,3 @@
-/*ej_joins.txt */
 /*1.Provide a table that provides the region for each sales_rep along with their associated accounts.
 This time only for the Midwest region. Sort the accounts alphabetically (A-Z) according to account name.*/
 
@@ -91,7 +90,8 @@ ORDER BY unit_price DESC
 --(as we mentioned previously), we join the accounts table with the orders table
 --Lastly we group by the account_name
 
-SELECT ac.name AS account_name, AVG(o.standard_qty) AS average_standard_qty, AVG(o.gloss_qty) AS average_gloss_qty, AVG(o.poster_qty) AS average_poster_qty
+SELECT ac.name AS account_name, AVG(o.standard_qty) AS average_standard_qty, AVG(o.gloss_qty) AS average_gloss_qty, 
+AVG(o.poster_qty) AS average_poster_qty, AVG(total) as average_total
 FROM accounts ac JOIN orders o ON ac.id=o.account_id 
 GROUP BY ac.name
 ORDER BY average_standard_qty DESC
@@ -154,7 +154,7 @@ ORDER BY total_usd ASC
 
 
 --In this one we can see the total by year and month
---AS we do earier, we extract the year of the occurred_at column and we also extract the month.
+--AS we did earier, we extract the year of the occurred_at column and we also extract the month.
 --We group by year and month
 --We can observe that for 2013 and 2017 there is only one month of sales for each of these years
 
@@ -169,7 +169,7 @@ ORDER BY year
 --Here we extract the day too
 --We take the records from the 2017 year
 --We can visualize the total for each day of the month
---We observe that for the 2017 year we only have the first and second day from January 
+--We observe that for the 2017 year we only have the first and second day of January 
 
 SELECT EXTRACT(YEAR FROM occurred_at) AS year, EXTRACT(MONTH FROM occurred_at) AS month,  EXTRACT(DAY FROM occurred_at) AS day,
 SUM(total_amt_usd) AS total_usd
@@ -190,6 +190,21 @@ FROM orders
 WHERE EXTRACT(MONTH FROM occurred_at)=1 AND EXTRACT(DAY FROM occurred_at)=1
 GROUP BY year, month, day
 ORDER BY total_usd ASC
+
+
+-- Lets se the percentage of growth in each year
+-- 
+WITH CTE_GROWTH AS 
+(SELECT EXTRACT(YEAR FROM occurred_at) AS year, EXTRACT(MONTH FROM occurred_at) AS month,  EXTRACT(DAY FROM occurred_at) AS day,
+SUM(total_amt_usd) AS total_usd
+FROM orders
+WHERE EXTRACT(MONTH FROM occurred_at)=1 AND EXTRACT(DAY FROM occurred_at)=1
+GROUP BY year, month, day
+ORDER BY total_usd ASC) 
+
+SELECT year, month, day,total_usd, total_usd - LAG(total_usd) OVER (ORDER BY year ASC) AS growth, 
+(total_usd - LAG (total_usd) OVER (ORDER BY year ASC))/LAG (total_usd) OVER (ORDER BY year ASC)*100 AS percentage_growth
+FROM CTE_GROWTH
 
 
 
