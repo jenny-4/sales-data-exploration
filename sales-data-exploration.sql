@@ -1,11 +1,11 @@
 /*1.Provide a table that provides the region for each sales_rep along with their associated accounts.
 This time only for the Midwest region. Sort the accounts alphabetically (A-Z) according to account name.*/
 
---As we want the region name, the sales rep name and the account name we have to work with 3 tables: regions, sales_reps and accounts
+--As we want the region name, the sales rep name and the account name, we have to work with 3 tables: regions, sales_reps and accounts
 --So we select the name column from the regions table, the name column from the sales_reps table and the name column from the accounts table
 --Then we join the region table with the sales_reps table and that with the account tables
--- As we only want the Midwest region we filter with a where clause
--- And finally with sort by the account name 
+-- As we only want the Midwest region, we filter with a where clause
+-- And finally we sort by the account name 
 
 SELECT r.name as Region, sr.name as Rep_name, ac.name as account_name
 FROM region r JOIN sales_reps sr ON r.id=sr.region_id JOIN accounts ac ON sr.id=ac.sales_rep_id
@@ -49,9 +49,9 @@ ORDER BY ac.name ASC
 (total_amt_usd/total) for the order. However, you should only provide the results if the standard order quantity exceeds 100.
 In order to avoid a division by zero error, adding .01 to the denominator here is helpful total_amt_usd/(total+0.01).*/
 
---We want the region, the account name, and the unit price so we going to work with the region, the accounts and the orders tables
+--We want the region, the account name, and the unit price; so we are going to work with the region, the accounts and the orders tables
 --We also going to need the sales_reps table to join the tables mentioned above
---And then we add a condition, we only want the orders with more than 100 standard paper
+--And then, we add a condition: we only want the orders with more than 100 standard paper
 SELECT r.name AS region, ac.name AS account_name, o.total_amt_usd/(o.total + 0.01) AS unit_price
 FROM region r JOIN sales_reps sr ON r.id=sr.region_id JOIN accounts ac ON sr.id=ac.sales_rep_id JOIN orders o ON ac.id = o.account_id
 WHERE o.standard_qty > 100
@@ -87,7 +87,7 @@ ORDER BY unit_price DESC
 --We need the column name of the accounts table, and the mean of each type of paper each one of the accounts purchased
 --Thus, we apply the aggregate function avg() in each type of paper
 --As we want the account name and the mean of each type of paper each one of the accounts purchased across their orders
---(as we mentioned previously), we join the accounts table with the orders table
+--we join the accounts table with the orders table
 --Lastly we group by the account_name
 
 SELECT ac.name AS account_name, AVG(o.standard_qty) AS average_standard_qty, AVG(o.gloss_qty) AS average_gloss_qty, 
@@ -121,7 +121,7 @@ Order your table with the highest number of occurrences first.*/
 
 --We want the sales rep name, the channel and the number of occurrences of these channels so we will work with web_events table, the sales_reps table
 --and inderectly with the accounts table
---Therefore we select the name column from the sales_reps table, the channel column from the web_events table and we apply de count() function
+--Therefore, we select the name column from the sales_reps table, the channel column from the web_events table and we apply de count() function
 --to the channels
 --Then, as we are working with the web_events and sales_reps tables we want to join them. But the only way to do this is through the
 --accounts table, so we do that.
@@ -143,7 +143,7 @@ with 2016 being the largest sales to date. At this rate, we might expect 2017 to
 
 --Here we can see the yearly totals
 --We extract the year of the occurred_at column from the orders table and apply the sum() function to the total_amt_usd also from de orders table
---Group by year and lastly sort it by the total_usd
+--Group by year and lastly sort it by the total_usd column
 --We can see sales have been increasing year over year
 
 SELECT EXTRACT(YEAR FROM occurred_at) AS year,  SUM(total_amt_usd) AS total_usd
@@ -192,8 +192,7 @@ GROUP BY year, month, day
 ORDER BY total_usd ASC
 
 
--- Lets se the percentage of growth in each year
--- 
+-- Lets see the percentage of growth in each year
 WITH CTE_GROWTH AS 
 (SELECT EXTRACT(YEAR FROM occurred_at) AS year, EXTRACT(MONTH FROM occurred_at) AS month,  EXTRACT(DAY FROM occurred_at) AS day,
 SUM(total_amt_usd) AS total_usd
@@ -215,7 +214,7 @@ FROM CTE_GROWTH
 --We join the accounts table with the orders table because we need information from both tables
 --And we only want what Walmart spend so we add a condition with the where clause
 --Then we group by account_name, year and month
---And we order all by total spend on gloss paper and as we only want the year and month Walmart spend the most we take only the first row.
+--And we order all by total spend on gloss paper and as we only want the year and month Walmart spend the most, we take only the first row.
 
 SELECT ac.name AS account_name,  EXTRACT(YEAR FROM o.occurred_at) AS year, EXTRACT(MONTH FROM o.occurred_at) AS month, SUM(o.gloss_amt_usd) AS gloss_total_usd
 FROM accounts ac JOIN orders o ON ac.id=o.account_id
