@@ -1,8 +1,5 @@
 # Sales Analysis
 
-
-we have records of orders for different types of paper placed by companies such as Walmart, Microsoft, among others. We can see how much of each type of paper was ordered, how much was spent, who was responsible for the order, in which region the company is located, and the dates of the different web events each company has conducted .
-
 Firstable lets see how much we sale per year
 
 ````sql
