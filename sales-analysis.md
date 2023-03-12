@@ -170,7 +170,7 @@ total_standard_usd|total_gloss_usd |total_poster_usd|
 ------------------|----------------|----------------|
 9672346.54	      |7593159.77      |5876005.52      |
 
-From the two tables aboves we observe that the paper that has sold the most is standard paper.
+From the two tables above we observe that the paper that has sold the most is standard paper.
 
 Let's say we want to know the unit price that each company paid per order, but only for those  that have bought more than 100 standard type papers and 50 poster papers.
 
@@ -212,10 +212,10 @@ Knowing the unit price is important because it allows the buyer to understand ho
 We could also use this unit price to get an idea of the cost of producing a certain type of paper. Similarly, we can compare this unit price with that of our competitors.
 
 ## Conclusions
-1. Year-on-year there has been a steady increase in sales with a surge of over 100\% from 2016 to 2017
+1. Year-on-year there has been a steady increase in sales with a surge of over 100\% from 2016 to 2017.
 2. We expect 2017 to have the largest sales.
 3. Our biggest client is *Pacific Life* followed by *Fidelity National Financial.*
-4. 
+4. The paper that has sold the most is standard type paper.
 5. The highest unit price is 8.08 USD, which corresponds to *IBM.*
 
 
